@@ -1,0 +1,169 @@
+﻿namespace StudentLabGradeSheet
+{
+    partial class Main
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            dataGridView1 = new DataGridView();
+            addStudent = new Button();
+            removeStudent = new Button();
+            importCSV = new Button();
+            exportGrades = new Button();
+            generateReport = new Button();
+            searchStudent = new Button();
+            lblTitle = new Label();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            SuspendLayout();
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(12, 50);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.Size = new Size(1000, 400);
+            dataGridView1.TabIndex = 0;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            dataGridView1.CellEndEdit += dataGridView1_CellEndEdit;
+            // 
+            // addStudent
+            // 
+            addStudent.BackColor = Color.LightGreen;
+            addStudent.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            addStudent.Location = new Point(12, 470);
+            addStudent.Name = "addStudent";
+            addStudent.Size = new Size(120, 35);
+            addStudent.TabIndex = 1;
+            addStudent.Text = "Add Student";
+            addStudent.UseVisualStyleBackColor = false;
+            addStudent.Click += addStudent_Click;
+            // 
+            // removeStudent
+            // 
+            removeStudent.BackColor = Color.LightCoral;
+            removeStudent.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            removeStudent.Location = new Point(150, 470);
+            removeStudent.Name = "removeStudent";
+            removeStudent.Size = new Size(120, 35);
+            removeStudent.TabIndex = 2;
+            removeStudent.Text = "Remove Selected";
+            removeStudent.UseVisualStyleBackColor = false;
+            removeStudent.Click += removeStudent_Click;
+            // 
+            // importCSV
+            // 
+            importCSV.BackColor = Color.LightBlue;
+            importCSV.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            importCSV.Location = new Point(290, 470);
+            importCSV.Name = "importCSV";
+            importCSV.Size = new Size(120, 35);
+            importCSV.TabIndex = 3;
+            importCSV.Text = "Import CSV";
+            importCSV.UseVisualStyleBackColor = false;
+            importCSV.Click += importCSV_Click;
+            // 
+            // exportGrades
+            // 
+            exportGrades.BackColor = Color.LightYellow;
+            exportGrades.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            exportGrades.Location = new Point(430, 470);
+            exportGrades.Name = "exportGrades";
+            exportGrades.Size = new Size(120, 35);
+            exportGrades.TabIndex = 4;
+            exportGrades.Text = "Export Grades";
+            exportGrades.UseVisualStyleBackColor = false;
+            exportGrades.Click += exportGrades_Click;
+            // 
+            // generateReport
+            // 
+            generateReport.BackColor = Color.LightSalmon;
+            generateReport.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            generateReport.Location = new Point(570, 470);
+            generateReport.Name = "generateReport";
+            generateReport.Size = new Size(120, 35);
+            generateReport.TabIndex = 5;
+            generateReport.Text = "Generate Report";
+            generateReport.UseVisualStyleBackColor = false;
+            generateReport.Click += generateReport_Click;
+            // 
+            // searchStudent
+            // 
+            searchStudent.BackColor = Color.LightCyan;
+            searchStudent.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            searchStudent.Location = new Point(710, 470);
+            searchStudent.Name = "searchStudent";
+            searchStudent.Size = new Size(120, 35);
+            searchStudent.TabIndex = 6;
+            searchStudent.Text = "Search Student";
+            searchStudent.UseVisualStyleBackColor = false;
+            searchStudent.Click += searchStudent_Click;
+            // 
+            // lblTitle
+            // 
+            lblTitle.AutoSize = true;
+            lblTitle.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            lblTitle.ForeColor = Color.DarkBlue;
+            lblTitle.Location = new Point(12, 9);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(400, 30);
+            lblTitle.TabIndex = 7;
+            lblTitle.Text = "Student Lab Grade Sheet - Section C1";
+            // 
+            // Main
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1024, 530);
+            Controls.Add(lblTitle);
+            Controls.Add(searchStudent);
+            Controls.Add(generateReport);
+            Controls.Add(exportGrades);
+            Controls.Add(importCSV);
+            Controls.Add(removeStudent);
+            Controls.Add(addStudent);
+            Controls.Add(dataGridView1);
+            Name = "Main";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Student Lab Grade Sheet Generator";
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
+        }
+
+        #endregion
+
+        private DataGridView dataGridView1;
+        private Button addStudent;
+        private Button removeStudent;
+        private Button importCSV;
+        private Button exportGrades;
+        private Button generateReport;
+        private Button searchStudent;
+        private Label lblTitle;
+    }
+}

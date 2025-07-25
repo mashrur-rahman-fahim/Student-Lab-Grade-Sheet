@@ -1,0 +1,113 @@
+﻿using System;
+
+namespace StudentLabGradeSheet
+{
+    public class Student
+    {
+        private int _attendance;
+        private int _online;
+        private int _assignment;
+        private int _project;
+
+        public string RollNo { get; set; }
+        public string Name { get; set; }
+        
+        public int Attendance 
+        { 
+            get => _attendance;
+            set => _attendance = Math.Max(0, Math.Min(value, 20)); // Validate: 0 ≤ attendance ≤ 20
+        }
+        
+        public int Online 
+        { 
+            get => _online;
+            set => _online = Math.Max(0, Math.Min(value, 10)); // Validate: 0 ≤ online ≤ 10
+        }
+        
+        public int Assignment 
+        { 
+            get => _assignment;
+            set => _assignment = Math.Max(0, Math.Min(value, 20)); // Validate: 0 ≤ assignment ≤ 20
+        }
+        
+        public int Project 
+        { 
+            get => _project;
+            set => _project = Math.Max(0, Math.Min(value, 50)); // Validate: 0 ≤ project ≤ 50
+        }
+        
+        public int Total => Attendance + Online + Assignment + Project;
+        
+        public string Grade
+        {
+            get
+            {
+                int total = Total;
+                return total switch
+                {
+                    >= 80 => "A+",  // A+ ≥ 80
+                    >= 75 => "A",   // A ≥ 75 && < 80
+                    >= 70 => "A-",  // A- ≥ 70 && < 75 (5 marks decrease)
+                    >= 65 => "B+",  // B+ ≥ 65 && < 70 (5 marks decrease)
+                    >= 60 => "B",   // B ≥ 60 && < 65 (5 marks decrease)
+                    >= 55 => "B-",  // B- ≥ 55 && < 60 (5 marks decrease)
+                    >= 50 => "C+",  // C+ ≥ 50 && < 55 (5 marks decrease)
+                    >= 45 => "C",   // C ≥ 45 && < 50 (5 marks decrease)
+                    >= 40 => "C-",  // C- ≥ 40 && < 45 (5 marks decrease)
+                    >= 35 => "D+",  // D+ ≥ 35 && < 40 (5 marks decrease)
+                    >= 30 => "D",   // D ≥ 30 && < 35 (5 marks decrease)
+                    _ => "F"        // F < 30
+                };
+            }
+        }
+
+        public Student()
+        {
+            RollNo = "";
+            Name = "";
+            Attendance = 0;
+            Online = 0;
+            Assignment = 0;
+            Project = 0;
+        }
+
+        public Student(string rollNo, string name, int attendance = 0, int online = 0, int assignment = 0, int project = 0)
+        {
+            RollNo = rollNo;
+            Name = name;
+            Attendance = attendance; // Will be validated by setter
+            Online = online;         // Will be validated by setter
+            Assignment = assignment; // Will be validated by setter
+            Project = project;       // Will be validated by setter
+        }
+
+        // Method to validate if all marks are within acceptable ranges
+        public bool IsValid()
+        {
+            return Attendance >= 0 && Attendance <= 20 &&
+                   Online >= 0 && Online <= 10 &&
+                   Assignment >= 0 && Assignment <= 20 &&
+                   Project >= 0 && Project <= 50;
+        }
+
+        // Method to get validation errors
+        public string GetValidationErrors()
+        {
+            var errors = new System.Collections.Generic.List<string>();
+            
+            if (Attendance < 0 || Attendance > 20)
+                errors.Add("Attendance must be between 0 and 20");
+            
+            if (Online < 0 || Online > 10)
+                errors.Add("Online marks must be between 0 and 10");
+            
+            if (Assignment < 0 || Assignment > 20)
+                errors.Add("Assignment marks must be between 0 and 20");
+            
+            if (Project < 0 || Project > 50)
+                errors.Add("Project marks must be between 0 and 50");
+            
+            return string.Join("; ", errors);
+        }
+    }
+}

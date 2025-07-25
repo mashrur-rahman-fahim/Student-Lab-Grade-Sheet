@@ -1,0 +1,290 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.IO;
+
+namespace StudentLabGradeSheet
+{
+    public partial class Main : Form
+    {
+        private List<Student> students;
+        private BindingSource bindingSource;
+        
+        public Main()
+        {
+            InitializeComponent();
+            InitializeData();
+            SetupDataGridView();
+        }
+
+        private void InitializeData()
+        {
+            students = new List<Student>();
+            bindingSource = new BindingSource();
+            bindingSource.DataSource = students;
+        }
+
+        private void SetupDataGridView()
+        {
+            dataGridView1.DataSource = bindingSource;
+            dataGridView1.AutoGenerateColumns = true;
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.MultiSelect = false;
+            
+            // Format columns after data binding
+            if (dataGridView1.Columns.Count > 0)
+            {
+                dataGridView1.Columns["RollNo"].HeaderText = "Roll No";
+                dataGridView1.Columns["Name"].HeaderText = "Name";
+                dataGridView1.Columns["Attendance"].HeaderText = "Att (20)";
+                dataGridView1.Columns["Online"].HeaderText = "Online (10)";
+                dataGridView1.Columns["Assignment"].HeaderText = "Assign (20)";
+                dataGridView1.Columns["Project"].HeaderText = "Proj (50)";
+                dataGridView1.Columns["Total"].HeaderText = "Total";
+                dataGridView1.Columns["Grade"].HeaderText = "Grade";
+                
+                // Make calculated columns read-only
+                dataGridView1.Columns["Total"].ReadOnly = true;
+                dataGridView1.Columns["Grade"].ReadOnly = true;
+            }
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Handle cell clicks if needed
+        }
+
+        private void addStudent_Click(object sender, EventArgs e)
+        {
+            string rollNo = Prompt.ShowDialog("Enter Roll No:", "Add Student");
+            if (string.IsNullOrWhiteSpace(rollNo))
+                return;
+
+            // Check for duplicate roll numbers
+            if (students.Any(s => s.RollNo.Equals(rollNo, StringComparison.OrdinalIgnoreCase)))
+            {
+                MessageBox.Show("A student with this roll number already exists!", "Duplicate Roll Number", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string name = Prompt.ShowDialog("Enter Student Name:", "Add Student");
+            if (string.IsNullOrWhiteSpace(name))
+                return;
+
+            Student newStudent = new Student(rollNo, name);
+            students.Add(newStudent);
+            bindingSource.ResetBindings(false);
+            
+            MessageBox.Show($"Student {name} (Roll No: {rollNo}) added successfully!", "Student Added", 
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void removeStudent_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select a student to remove.", "No Selection", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            Student selectedStudent = (Student)dataGridView1.SelectedRows[0].DataBoundItem;
+            
+            if (Prompt.ShowConfirmDialog($"Are you sure you want to remove {selectedStudent.Name} (Roll No: {selectedStudent.RollNo})?", 
+                "Confirm Removal") == DialogResult.Yes)
+            {
+                students.Remove(selectedStudent);
+                bindingSource.ResetBindings(false);
+                MessageBox.Show("Student removed successfully!", "Student Removed", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void importCSV_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
+            openFileDialog.Title = "Import Student List";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    ImportStudentsFromCSV(openFileDialog.FileName);
+                    MessageBox.Show("Students imported successfully!", "Import Successful", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error importing CSV file: {ex.Message}", "Import Error", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void ImportStudentsFromCSV(string filePath)
+        {
+            string[] lines = File.ReadAllLines(filePath);
+            int importedCount = 0;
+            int skippedCount = 0;
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string line = lines[i].Trim();
+                if (string.IsNullOrEmpty(line) || (i == 0 && line.ToLower().Contains("roll")))
+                    continue; // Skip header or empty lines
+
+                string[] parts = line.Split(',');
+                if (parts.Length >= 2)
+                {
+                    string rollNo = parts[0].Trim();
+                    string name = parts[1].Trim();
+
+                    // Check for duplicates
+                    if (!students.Any(s => s.RollNo.Equals(rollNo, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        Student student = new Student(rollNo, name);
+                        
+                        // If more columns exist, try to import marks
+                        if (parts.Length >= 6)
+                        {
+                            if (int.TryParse(parts[2].Trim(), out int att)) student.Attendance = att;
+                            if (int.TryParse(parts[3].Trim(), out int online)) student.Online = online;
+                            if (int.TryParse(parts[4].Trim(), out int assign)) student.Assignment = assign;
+                            if (int.TryParse(parts[5].Trim(), out int proj)) student.Project = proj;
+                        }
+                        
+                        students.Add(student);
+                        importedCount++;
+                    }
+                    else
+                    {
+                        skippedCount++;
+                    }
+                }
+            }
+
+            bindingSource.ResetBindings(false);
+            
+            if (skippedCount > 0)
+            {
+                MessageBox.Show($"Imported {importedCount} students. Skipped {skippedCount} duplicates.", 
+                    "Import Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void exportGrades_Click(object sender, EventArgs e)
+        {
+            if (students.Count == 0)
+            {
+                MessageBox.Show("No students to export.", "No Data", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "CSV files (*.csv)|*.csv";
+            saveFileDialog.Title = "Export Grades";
+            saveFileDialog.FileName = $"GradeSheet_{DateTime.Now:yyyyMMdd_HHmmss}.csv";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    ExportGradesToCSV(saveFileDialog.FileName);
+                    MessageBox.Show("Grades exported successfully!", "Export Successful", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error exporting grades: {ex.Message}", "Export Error", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void ExportGradesToCSV(string filePath)
+        {
+            StringBuilder csv = new StringBuilder();
+            csv.AppendLine("Roll No,Name,Attendance,Online,Assignment,Project,Total,Grade");
+
+            foreach (Student student in students)
+            {
+                csv.AppendLine($"{student.RollNo},{student.Name},{student.Attendance},{student.Online},{student.Assignment},{student.Project},{student.Total},{student.Grade}");
+            }
+
+            File.WriteAllText(filePath, csv.ToString());
+        }
+
+        private void generateReport_Click(object sender, EventArgs e)
+        {
+            if (students.Count == 0)
+            {
+                MessageBox.Show("No students available for report generation.", "No Data", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            SummaryForm summaryForm = new SummaryForm(students);
+            summaryForm.ShowDialog();
+        }
+
+        private void searchStudent_Click(object sender, EventArgs e)
+        {
+            string searchTerm = Prompt.ShowDialog("Enter Roll No or Name to search:", "Search Student");
+            if (string.IsNullOrWhiteSpace(searchTerm))
+                return;
+
+            var foundStudents = students.Where(s => 
+                s.RollNo.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                s.Name.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
+
+            if (foundStudents.Count == 0)
+            {
+                MessageBox.Show("No students found matching the search criteria.", "Search Results", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // Highlight found students in the grid
+            dataGridView1.ClearSelection();
+            foreach (Student student in foundStudents)
+            {
+                int index = students.IndexOf(student);
+                if (index >= 0)
+                {
+                    dataGridView1.Rows[index].Selected = true;
+                }
+            }
+
+            MessageBox.Show($"Found {foundStudents.Count} student(s) matching '{searchTerm}'.", "Search Results", 
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            // Refresh calculated columns when marks are edited
+            bindingSource.ResetBindings(false);
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (Prompt.ShowConfirmDialog("Are you sure you want to exit?", "Confirm Exit") == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+                Application.Exit();
+            }
+        }
+    }
+}

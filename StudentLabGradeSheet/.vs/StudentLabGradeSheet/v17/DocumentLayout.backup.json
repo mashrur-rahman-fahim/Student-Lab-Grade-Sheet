@@ -1,0 +1,48 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\User\\source\\repos\\StudentLabGradeSheetProject\\StudentLabGradeSheet\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8B47C9D1-C329-49B2-AC44-27A672F60C0F}|StudentLabGradeSheet.csproj|c:\\users\\user\\source\\repos\\studentlabgradesheetproject\\studentlabgradesheet\\studentlabgradesheet.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{8B47C9D1-C329-49B2-AC44-27A672F60C0F}|StudentLabGradeSheet.csproj|solutionrelative:studentlabgradesheet.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "StudentLabGradeSheet",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\StudentLabGradeSheetProject\\StudentLabGradeSheet\\StudentLabGradeSheet.csproj",
+              "RelativeDocumentMoniker": "StudentLabGradeSheet.csproj",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\StudentLabGradeSheetProject\\StudentLabGradeSheet\\StudentLabGradeSheet.csproj",
+              "RelativeToolTip": "StudentLabGradeSheet.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-07-25T12:52:26.232Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

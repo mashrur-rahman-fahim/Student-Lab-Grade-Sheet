@@ -1,0 +1,280 @@
+﻿namespace StudentLabGradeSheet
+{
+    partial class SummaryForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            lblTitle = new Label();
+            lblTotalStudents = new Label();
+            lblAvgTotal = new Label();
+            lblHighestTotal = new Label();
+            lblLowestTotal = new Label();
+            lblAvgAttendance = new Label();
+            lblAvgOnline = new Label();
+            lblAvgAssignment = new Label();
+            lblAvgProject = new Label();
+            txtGradeDistribution = new TextBox();
+            txtTopPerformers = new TextBox();
+            btnBack = new Button();
+            btnPrint = new Button();
+            lblGradeDistribution = new Label();
+            lblTopPerformers = new Label();
+            panel1 = new Panel();
+            panel2 = new Panel();
+            panel1.SuspendLayout();
+            panel2.SuspendLayout();
+            SuspendLayout();
+            // 
+            // lblTitle
+            // 
+            lblTitle.AutoSize = true;
+            lblTitle.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            lblTitle.ForeColor = Color.DarkBlue;
+            lblTitle.Location = new Point(12, 9);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(280, 30);
+            lblTitle.TabIndex = 0;
+            lblTitle.Text = "Grade Summary Report";
+            // 
+            // lblTotalStudents
+            // 
+            lblTotalStudents.AutoSize = true;
+            lblTotalStudents.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblTotalStudents.Location = new Point(15, 15);
+            lblTotalStudents.Name = "lblTotalStudents";
+            lblTotalStudents.Size = new Size(110, 19);
+            lblTotalStudents.TabIndex = 1;
+            lblTotalStudents.Text = "Total Students:";
+            // 
+            // lblAvgTotal
+            // 
+            lblAvgTotal.AutoSize = true;
+            lblAvgTotal.Font = new Font("Segoe UI", 10F);
+            lblAvgTotal.Location = new Point(15, 45);
+            lblAvgTotal.Name = "lblAvgTotal";
+            lblAvgTotal.Size = new Size(89, 19);
+            lblAvgTotal.TabIndex = 2;
+            lblAvgTotal.Text = "Average Total:";
+            // 
+            // lblHighestTotal
+            // 
+            lblHighestTotal.AutoSize = true;
+            lblHighestTotal.Font = new Font("Segoe UI", 10F);
+            lblHighestTotal.Location = new Point(15, 75);
+            lblHighestTotal.Name = "lblHighestTotal";
+            lblHighestTotal.Size = new Size(95, 19);
+            lblHighestTotal.TabIndex = 3;
+            lblHighestTotal.Text = "Highest Total:";
+            // 
+            // lblLowestTotal
+            // 
+            lblLowestTotal.AutoSize = true;
+            lblLowestTotal.Font = new Font("Segoe UI", 10F);
+            lblLowestTotal.Location = new Point(15, 105);
+            lblLowestTotal.Name = "lblLowestTotal";
+            lblLowestTotal.Size = new Size(91, 19);
+            lblLowestTotal.TabIndex = 4;
+            lblLowestTotal.Text = "Lowest Total:";
+            // 
+            // lblAvgAttendance
+            // 
+            lblAvgAttendance.AutoSize = true;
+            lblAvgAttendance.Font = new Font("Segoe UI", 9F);
+            lblAvgAttendance.Location = new Point(15, 135);
+            lblAvgAttendance.Name = "lblAvgAttendance";
+            lblAvgAttendance.Size = new Size(101, 15);
+            lblAvgAttendance.TabIndex = 5;
+            lblAvgAttendance.Text = "Avg Attendance:";
+            // 
+            // lblAvgOnline
+            // 
+            lblAvgOnline.AutoSize = true;
+            lblAvgOnline.Font = new Font("Segoe UI", 9F);
+            lblAvgOnline.Location = new Point(15, 155);
+            lblAvgOnline.Name = "lblAvgOnline";
+            lblAvgOnline.Size = new Size(71, 15);
+            lblAvgOnline.TabIndex = 6;
+            lblAvgOnline.Text = "Avg Online:";
+            // 
+            // lblAvgAssignment
+            // 
+            lblAvgAssignment.AutoSize = true;
+            lblAvgAssignment.Font = new Font("Segoe UI", 9F);
+            lblAvgAssignment.Location = new Point(15, 175);
+            lblAvgAssignment.Name = "lblAvgAssignment";
+            lblAvgAssignment.Size = new Size(99, 15);
+            lblAvgAssignment.TabIndex = 7;
+            lblAvgAssignment.Text = "Avg Assignment:";
+            // 
+            // lblAvgProject
+            // 
+            lblAvgProject.AutoSize = true;
+            lblAvgProject.Font = new Font("Segoe UI", 9F);
+            lblAvgProject.Location = new Point(15, 195);
+            lblAvgProject.Name = "lblAvgProject";
+            lblAvgProject.Size = new Size(75, 15);
+            lblAvgProject.TabIndex = 8;
+            lblAvgProject.Text = "Avg Project:";
+            // 
+            // txtGradeDistribution
+            // 
+            txtGradeDistribution.Font = new Font("Courier New", 9F);
+            txtGradeDistribution.Location = new Point(15, 35);
+            txtGradeDistribution.Multiline = true;
+            txtGradeDistribution.Name = "txtGradeDistribution";
+            txtGradeDistribution.ReadOnly = true;
+            txtGradeDistribution.ScrollBars = ScrollBars.Vertical;
+            txtGradeDistribution.Size = new Size(200, 150);
+            txtGradeDistribution.TabIndex = 9;
+            // 
+            // txtTopPerformers
+            // 
+            txtTopPerformers.Font = new Font("Courier New", 9F);
+            txtTopPerformers.Location = new Point(15, 235);
+            txtTopPerformers.Multiline = true;
+            txtTopPerformers.Name = "txtTopPerformers";
+            txtTopPerformers.ReadOnly = true;
+            txtTopPerformers.ScrollBars = ScrollBars.Vertical;
+            txtTopPerformers.Size = new Size(200, 120);
+            txtTopPerformers.TabIndex = 10;
+            // 
+            // btnBack
+            // 
+            btnBack.BackColor = Color.LightGray;
+            btnBack.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnBack.Location = new Point(400, 400);
+            btnBack.Name = "btnBack";
+            btnBack.Size = new Size(100, 40);
+            btnBack.TabIndex = 11;
+            btnBack.Text = "Back";
+            btnBack.UseVisualStyleBackColor = false;
+            btnBack.Click += btnBack_Click;
+            // 
+            // btnPrint
+            // 
+            btnPrint.BackColor = Color.LightBlue;
+            btnPrint.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnPrint.Location = new Point(520, 400);
+            btnPrint.Name = "btnPrint";
+            btnPrint.Size = new Size(100, 40);
+            btnPrint.TabIndex = 12;
+            btnPrint.Text = "Print";
+            btnPrint.UseVisualStyleBackColor = false;
+            btnPrint.Click += btnPrint_Click;
+            // 
+            // lblGradeDistribution
+            // 
+            lblGradeDistribution.AutoSize = true;
+            lblGradeDistribution.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblGradeDistribution.Location = new Point(15, 15);
+            lblGradeDistribution.Name = "lblGradeDistribution";
+            lblGradeDistribution.Size = new Size(132, 19);
+            lblGradeDistribution.TabIndex = 13;
+            lblGradeDistribution.Text = "Grade Distribution";
+            // 
+            // lblTopPerformers
+            // 
+            lblTopPerformers.AutoSize = true;
+            lblTopPerformers.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblTopPerformers.Location = new Point(15, 215);
+            lblTopPerformers.Name = "lblTopPerformers";
+            lblTopPerformers.Size = new Size(114, 19);
+            lblTopPerformers.TabIndex = 14;
+            lblTopPerformers.Text = "Top Performers";
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.LightYellow;
+            panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(lblTotalStudents);
+            panel1.Controls.Add(lblAvgTotal);
+            panel1.Controls.Add(lblHighestTotal);
+            panel1.Controls.Add(lblLowestTotal);
+            panel1.Controls.Add(lblAvgAttendance);
+            panel1.Controls.Add(lblAvgOnline);
+            panel1.Controls.Add(lblAvgAssignment);
+            panel1.Controls.Add(lblAvgProject);
+            panel1.Location = new Point(12, 50);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(300, 230);
+            panel1.TabIndex = 15;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.LightCyan;
+            panel2.BorderStyle = BorderStyle.FixedSingle;
+            panel2.Controls.Add(lblGradeDistribution);
+            panel2.Controls.Add(txtGradeDistribution);
+            panel2.Controls.Add(lblTopPerformers);
+            panel2.Controls.Add(txtTopPerformers);
+            panel2.Location = new Point(330, 50);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(230, 370);
+            panel2.TabIndex = 16;
+            // 
+            // SummaryForm
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(580, 460);
+            Controls.Add(panel2);
+            Controls.Add(panel1);
+            Controls.Add(btnPrint);
+            Controls.Add(btnBack);
+            Controls.Add(lblTitle);
+            Name = "SummaryForm";
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Grade Summary Report";
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
+        }
+
+        #endregion
+
+        private Label lblTitle;
+        private Label lblTotalStudents;
+        private Label lblAvgTotal;
+        private Label lblHighestTotal;
+        private Label lblLowestTotal;
+        private Label lblAvgAttendance;
+        private Label lblAvgOnline;
+        private Label lblAvgAssignment;
+        private Label lblAvgProject;
+        private TextBox txtGradeDistribution;
+        private TextBox txtTopPerformers;
+        private Button btnBack;
+        private Button btnPrint;
+        private Label lblGradeDistribution;
+        private Label lblTopPerformers;
+        private Panel panel1;
+        private Panel panel2;
+    }
+}

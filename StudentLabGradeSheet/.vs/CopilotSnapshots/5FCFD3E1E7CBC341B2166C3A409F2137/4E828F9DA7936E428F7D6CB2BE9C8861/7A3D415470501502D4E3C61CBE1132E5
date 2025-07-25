@@ -1,0 +1,308 @@
+﻿using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace StudentLabGradeSheet
+{
+    partial class Main
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            panelTop = new Panel();
+            btnLogout = new Button();
+            lblSubtitle = new Label();
+            lblTitle = new Label();
+            panelMain = new Panel();
+            dataGridView1 = new DataGridView();
+            panelButtons = new Panel();
+            searchStudent = new Button();
+            generateReport = new Button();
+            exportGrades = new Button();
+            importCSV = new Button();
+            removeStudent = new Button();
+            addStudent = new Button();
+            statusStrip1 = new StatusStrip();
+            toolStripStatusLabel1 = new ToolStripStatusLabel();
+            toolStripStatusLabel2 = new ToolStripStatusLabel();
+            panelTop.SuspendLayout();
+            panelMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            panelButtons.SuspendLayout();
+            statusStrip1.SuspendLayout();
+            SuspendLayout();
+            // 
+            // panelTop
+            // 
+            panelTop.BackColor = Color.White;
+            panelTop.BorderStyle = BorderStyle.FixedSingle;
+            panelTop.Controls.Add(btnLogout);
+            panelTop.Controls.Add(lblSubtitle);
+            panelTop.Controls.Add(lblTitle);
+            panelTop.Dock = DockStyle.Top;
+            panelTop.Location = new Point(0, 0);
+            panelTop.Name = "panelTop";
+            panelTop.Padding = new Padding(30, 20, 30, 20);
+            panelTop.Size = new Size(1200, 120);
+            panelTop.TabIndex = 0;
+            // 
+            // btnLogout
+            // 
+            btnLogout.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnLogout.BackColor = Color.FromArgb(220, 53, 69);
+            btnLogout.FlatAppearance.BorderSize = 0;
+            btnLogout.FlatStyle = FlatStyle.Flat;
+            btnLogout.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnLogout.ForeColor = Color.White;
+            btnLogout.Location = new Point(1050, 30);
+            btnLogout.Name = "btnLogout";
+            btnLogout.Size = new Size(120, 35);
+            btnLogout.TabIndex = 7;
+            btnLogout.Text = "🚪 Logout";
+            btnLogout.UseVisualStyleBackColor = false;
+            btnLogout.Click += btnLogout_Click;
+            // 
+            // lblSubtitle
+            // 
+            lblSubtitle.AutoSize = true;
+            lblSubtitle.Font = new Font("Segoe UI", 11F);
+            lblSubtitle.ForeColor = Color.FromArgb(108, 117, 125);
+            lblSubtitle.Location = new Point(30, 70);
+            lblSubtitle.Name = "lblSubtitle";
+            lblSubtitle.Size = new Size(400, 20);
+            lblSubtitle.TabIndex = 1;
+            lblSubtitle.Text = "Manage student grades for SD Lab - Section C1";
+            // 
+            // lblTitle
+            // 
+            lblTitle.AutoSize = true;
+            lblTitle.Font = new Font("Segoe UI", 24F, FontStyle.Bold);
+            lblTitle.ForeColor = Color.FromArgb(0, 123, 255);
+            lblTitle.Location = new Point(30, 20);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(450, 45);
+            lblTitle.TabIndex = 0;
+            lblTitle.Text = "📊 Student Grade Sheet";
+            // 
+            // panelMain
+            // 
+            panelMain.Controls.Add(dataGridView1);
+            panelMain.Dock = DockStyle.Fill;
+            panelMain.Location = new Point(0, 120);
+            panelMain.Name = "panelMain";
+            panelMain.Padding = new Padding(20);
+            panelMain.Size = new Size(1200, 450);
+            panelMain.TabIndex = 1;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.BackgroundColor = Color.White;
+            dataGridView1.BorderStyle = BorderStyle.None;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Dock = DockStyle.Fill;
+            dataGridView1.Location = new Point(20, 20);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.Size = new Size(1160, 410);
+            dataGridView1.TabIndex = 0;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            dataGridView1.CellEndEdit += dataGridView1_CellEndEdit;
+            // 
+            // panelButtons
+            // 
+            panelButtons.BackColor = Color.White;
+            panelButtons.BorderStyle = BorderStyle.FixedSingle;
+            panelButtons.Controls.Add(searchStudent);
+            panelButtons.Controls.Add(generateReport);
+            panelButtons.Controls.Add(exportGrades);
+            panelButtons.Controls.Add(importCSV);
+            panelButtons.Controls.Add(removeStudent);
+            panelButtons.Controls.Add(addStudent);
+            panelButtons.Dock = DockStyle.Bottom;
+            panelButtons.Location = new Point(0, 570);
+            panelButtons.Name = "panelButtons";
+            panelButtons.Padding = new Padding(20, 15, 20, 15);
+            panelButtons.Size = new Size(1200, 80);
+            panelButtons.TabIndex = 2;
+            // 
+            // searchStudent
+            // 
+            searchStudent.BackColor = Color.FromArgb(108, 117, 125);
+            searchStudent.FlatAppearance.BorderSize = 0;
+            searchStudent.FlatStyle = FlatStyle.Flat;
+            searchStudent.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            searchStudent.ForeColor = Color.White;
+            searchStudent.Location = new Point(950, 20);
+            searchStudent.Name = "searchStudent";
+            searchStudent.Size = new Size(150, 40);
+            searchStudent.TabIndex = 5;
+            searchStudent.Text = "🔍 Search";
+            searchStudent.UseVisualStyleBackColor = false;
+            searchStudent.Click += searchStudent_Click;
+            // 
+            // generateReport
+            // 
+            generateReport.BackColor = Color.FromArgb(0, 123, 255);
+            generateReport.FlatAppearance.BorderSize = 0;
+            generateReport.FlatStyle = FlatStyle.Flat;
+            generateReport.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            generateReport.ForeColor = Color.White;
+            generateReport.Location = new Point(780, 20);
+            generateReport.Name = "generateReport";
+            generateReport.Size = new Size(150, 40);
+            generateReport.TabIndex = 4;
+            generateReport.Text = "📊 Report";
+            generateReport.UseVisualStyleBackColor = false;
+            generateReport.Click += generateReport_Click;
+            // 
+            // exportGrades
+            // 
+            exportGrades.BackColor = Color.FromArgb(255, 193, 7);
+            exportGrades.FlatAppearance.BorderSize = 0;
+            exportGrades.FlatStyle = FlatStyle.Flat;
+            exportGrades.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            exportGrades.ForeColor = Color.White;
+            exportGrades.Location = new Point(610, 20);
+            exportGrades.Name = "exportGrades";
+            exportGrades.Size = new Size(150, 40);
+            exportGrades.TabIndex = 3;
+            exportGrades.Text = "💾 Export";
+            exportGrades.UseVisualStyleBackColor = false;
+            exportGrades.Click += exportGrades_Click;
+            // 
+            // importCSV
+            // 
+            importCSV.BackColor = Color.FromArgb(23, 162, 184);
+            importCSV.FlatAppearance.BorderSize = 0;
+            importCSV.FlatStyle = FlatStyle.Flat;
+            importCSV.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            importCSV.ForeColor = Color.White;
+            importCSV.Location = new Point(440, 20);
+            importCSV.Name = "importCSV";
+            importCSV.Size = new Size(150, 40);
+            importCSV.TabIndex = 2;
+            importCSV.Text = "📁 Import";
+            importCSV.UseVisualStyleBackColor = false;
+            importCSV.Click += importCSV_Click;
+            // 
+            // removeStudent
+            // 
+            removeStudent.BackColor = Color.FromArgb(220, 53, 69);
+            removeStudent.FlatAppearance.BorderSize = 0;
+            removeStudent.FlatStyle = FlatStyle.Flat;
+            removeStudent.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            removeStudent.ForeColor = Color.White;
+            removeStudent.Location = new Point(230, 20);
+            removeStudent.Name = "removeStudent";
+            removeStudent.Size = new Size(150, 40);
+            removeStudent.TabIndex = 1;
+            removeStudent.Text = "➖ Remove";
+            removeStudent.UseVisualStyleBackColor = false;
+            removeStudent.Click += removeStudent_Click;
+            // 
+            // addStudent
+            // 
+            addStudent.BackColor = Color.FromArgb(40, 167, 69);
+            addStudent.FlatAppearance.BorderSize = 0;
+            addStudent.FlatStyle = FlatStyle.Flat;
+            addStudent.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            addStudent.ForeColor = Color.White;
+            addStudent.Location = new Point(30, 20);
+            addStudent.Name = "addStudent";
+            addStudent.Size = new Size(150, 40);
+            addStudent.TabIndex = 0;
+            addStudent.Text = "➕ Add Student";
+            addStudent.UseVisualStyleBackColor = false;
+            addStudent.Click += addStudent_Click;
+            // 
+            // statusStrip1
+            // 
+            statusStrip1.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1, toolStripStatusLabel2 });
+            statusStrip1.Location = new Point(0, 650);
+            statusStrip1.Name = "statusStrip1";
+            statusStrip1.Size = new Size(1200, 22);
+            statusStrip1.TabIndex = 3;
+            statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            toolStripStatusLabel1.Size = new Size(39, 17);
+            toolStripStatusLabel1.Text = "Ready";
+            // 
+            // toolStripStatusLabel2
+            // 
+            toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            toolStripStatusLabel2.Size = new Size(118, 17);
+            toolStripStatusLabel2.Text = "Students Loaded: 0";
+            // 
+            // Main
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(240, 245, 255);
+            ClientSize = new Size(1200, 672);
+            Controls.Add(panelMain);
+            Controls.Add(panelButtons);
+            Controls.Add(panelTop);
+            Controls.Add(statusStrip1);
+            MinimumSize = new Size(1000, 600);
+            Name = "Main";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Student Lab Grade Sheet Generator";
+            WindowState = FormWindowState.Maximized;
+            panelTop.ResumeLayout(false);
+            panelTop.PerformLayout();
+            panelMain.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            panelButtons.ResumeLayout(false);
+            statusStrip1.ResumeLayout(false);
+            statusStrip1.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
+        }
+
+        #endregion
+
+        private Panel panelTop;
+        private Label lblTitle;
+        private Label lblSubtitle;
+        private Panel panelMain;
+        private DataGridView dataGridView1;
+        private Panel panelButtons;
+        private Button addStudent;
+        private Button removeStudent;
+        private Button importCSV;
+        private Button exportGrades;
+        private Button generateReport;
+        private Button searchStudent;
+        private Button btnLogout;
+        private StatusStrip statusStrip1;
+        private ToolStripStatusLabel toolStripStatusLabel1;
+        private ToolStripStatusLabel toolStripStatusLabel2;
+    }
+}

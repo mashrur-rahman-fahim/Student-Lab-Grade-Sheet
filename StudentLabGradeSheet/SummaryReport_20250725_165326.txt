@@ -1,0 +1,50 @@
+﻿STUDENT GRADE SUMMARY REPORT
+Generated on: 2025-07-25 16:53:32
+===============================================
+
+STATISTICS:
+Total Students: 10
+Average Total: 86.90/100
+Highest Total: 100/100
+Lowest Total: 67/100
+
+Grade Distribution:
+===============================
+ A+:   8 ( 80.0%) ################
+ A-:   1 ( 10.0%) ##
+ B+:   1 ( 10.0%) ##
+
+
+Top Performers:
+=======================================
+[1st] Emily Davis          (2019-SE-006)
+      Total: 100/100 | Grade: A+
+
+[2nd] Jane Doe             (2019-SE-002)
+      Total: 97/100 | Grade: A+
+
+[3rd] Maria Rodriguez      (2019-SE-010)
+      Total: 95/100 | Grade: A+
+
+[4th] Sarah Wilson         (2019-SE-004)
+      Total: 92/100 | Grade: A+
+
+[5th] Lisa Garcia          (2019-SE-008)
+      Total: 91/100 | Grade: A+
+
+[6th] John Smith           (2019-SE-001)
+      Total: 89/100 | Grade: A+
+
+[7th] David Brown          (2019-SE-005)
+      Total: 84/100 | Grade: A+
+
+[8th] Mike Johnson         (2019-SE-003)
+      Total: 81/100 | Grade: A+
+
+[9th] Alex Chen            (2019-SE-007)
+      Total: 73/100 | Grade: A-
+
+[10th] Tom Anderson         (2019-SE-009)
+      Total: 67/100 | Grade: B+
+
+

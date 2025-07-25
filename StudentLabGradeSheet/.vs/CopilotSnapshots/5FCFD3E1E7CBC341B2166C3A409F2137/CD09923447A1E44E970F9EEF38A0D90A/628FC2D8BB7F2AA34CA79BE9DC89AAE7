@@ -1,0 +1,102 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace StudentLabGradeSheet
+{
+    public partial class Login : Form
+    {
+        public Login()
+        {
+            InitializeComponent();
+            ApplyModernStyling();
+        }
+
+        private void ApplyModernStyling()
+        {
+            // Apply modern theme to form
+            ModernTheme.StyleForm(this, "Student Grade Sheet - Login");
+            ModernTheme.ApplyGradientBackground(this);
+
+            // Style labels
+            ModernTheme.StyleLabel(lblTitle, ModernTheme.HeaderFont, ModernTheme.PrimaryColor);
+            ModernTheme.StyleLabel(lblSubtitle, ModernTheme.BodyFont, ModernTheme.TextMuted);
+            ModernTheme.StyleLabel(lblUsername, ModernTheme.BodyFont, ModernTheme.TextColor);
+            ModernTheme.StyleLabel(lblPassword, ModernTheme.BodyFont, ModernTheme.TextColor);
+
+            // Style text boxes
+            ModernTheme.StyleTextBox(userName);
+            ModernTheme.StyleTextBox(password, true);
+
+            // Style buttons
+            ModernTheme.StyleButton(loginBtn, ModernTheme.PrimaryColor, Color.White, true);
+            ModernTheme.StyleButton(btnExit, ModernTheme.SecondaryColor, Color.White);
+
+            // Style panels
+            ModernTheme.StylePanel(panelLogin, ModernTheme.CardBackground, true);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string username = userName.Text.Trim();
+            string userPassword = password.Text;
+            
+            if (username == "admin" && userPassword == "SDlab123")
+            {
+                MessageBox.Show("Login Successful! Welcome to Student Grade Sheet.", "Success", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Hide();
+                Main mainForm = new Main();
+                mainForm.Show();
+            }
+            else
+            {
+                MessageBox.Show("Invalid Username or Password!\n\nHint: Username: admin, Password: SDlab123", 
+                    "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                password.Clear();
+                userName.Focus();
+            }
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to exit?", "Confirm Exit", 
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+        }
+
+        private void userName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                password.Focus();
+            }
+        }
+
+        private void password_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                button1_Click(sender, e);
+            }
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+            // Placeholder for future functionality
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+            // Placeholder for future functionality
+        }
+    }
+}

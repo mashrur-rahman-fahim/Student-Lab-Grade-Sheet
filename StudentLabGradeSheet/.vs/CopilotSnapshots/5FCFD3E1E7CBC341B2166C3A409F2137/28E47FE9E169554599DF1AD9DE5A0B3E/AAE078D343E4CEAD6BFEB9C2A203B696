@@ -1,0 +1,94 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace StudentLabGradeSheet
+{
+    public partial class SummaryForm : Form
+    {
+        private List<Student> students;
+
+        public SummaryForm(List<Student> studentList)
+        {
+            InitializeComponent();
+            students = studentList;
+            LoadSummaryData();
+        }
+
+        private void LoadSummaryData()
+        {
+            if (students.Count == 0) return;
+
+            // Calculate statistics
+            double avgTotal = students.Average(s => s.Total);
+            int highestTotal = students.Max(s => s.Total);
+            int lowestTotal = students.Min(s => s.Total);
+            
+            double avgAttendance = students.Average(s => s.Attendance);
+            double avgOnline = students.Average(s => s.Online);
+            double avgAssignment = students.Average(s => s.Assignment);
+            double avgProject = students.Average(s => s.Project);
+
+            // Update labels
+            lblTotalStudents.Text = $"Total Students: {students.Count}";
+            lblAvgTotal.Text = $"Average Total: {avgTotal:F2}";
+            lblHighestTotal.Text = $"Highest Total: {highestTotal}";
+            lblLowestTotal.Text = $"Lowest Total: {lowestTotal}";
+            
+            lblAvgAttendance.Text = $"Avg Attendance: {avgAttendance:F1}/20";
+            lblAvgOnline.Text = $"Avg Online: {avgOnline:F1}/10";
+            lblAvgAssignment.Text = $"Avg Assignment: {avgAssignment:F1}/20";
+            lblAvgProject.Text = $"Avg Project: {avgProject:F1}/50";
+
+            // Grade distribution
+            var gradeDistribution = students.GroupBy(s => s.Grade)
+                                          .Select(g => new { Grade = g.Key, Count = g.Count() })
+                                          .OrderByDescending(g => g.Count);
+
+            StringBuilder gradeStats = new StringBuilder();
+            gradeStats.AppendLine("Grade Distribution:");
+            foreach (var grade in gradeDistribution)
+            {
+                double percentage = (grade.Count / (double)students.Count) * 100;
+                gradeStats.AppendLine($"{grade.Grade}: {grade.Count} ({percentage:F1}%)");
+            }
+
+            txtGradeDistribution.Text = gradeStats.ToString();
+
+            // Top performers
+            var topPerformers = students.OrderByDescending(s => s.Total).Take(5);
+            StringBuilder topStats = new StringBuilder();
+            topStats.AppendLine("Top 5 Performers:");
+            int rank = 1;
+            foreach (var student in topPerformers)
+            {
+                topStats.AppendLine($"{rank}. {student.Name} ({student.RollNo}) - {student.Total} ({student.Grade})");
+                rank++;
+            }
+
+            txtTopPerformers.Text = topStats.ToString();
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            // Simple print functionality
+            PrintDialog printDialog = new PrintDialog();
+            if (printDialog.ShowDialog() == DialogResult.OK)
+            {
+                MessageBox.Show("Print functionality would be implemented here.", "Print", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+    }
+}

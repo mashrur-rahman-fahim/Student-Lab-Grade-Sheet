@@ -1,0 +1,198 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace StudentLabGradeSheet
+{
+    public partial class SummaryForm : Form
+    {
+        private List<Student> students;
+
+        public SummaryForm(List<Student> studentList)
+        {
+            InitializeComponent();
+            students = studentList;
+            ApplyModernStyling();
+            LoadSummaryData();
+        }
+
+        private void ApplyModernStyling()
+        {
+            ModernTheme.StyleForm(this, "Grade Summary Report");
+            ModernTheme.ApplyGradientBackground(this);
+
+            ModernTheme.StyleLabel(lblTitle, ModernTheme.HeaderFont, ModernTheme.PrimaryColor);
+            ModernTheme.StyleLabel(lblStatsHeader, ModernTheme.TitleFont, ModernTheme.DarkColor);
+            ModernTheme.StyleLabel(lblGradeDistribution, ModernTheme.TitleFont, ModernTheme.DarkColor);
+            ModernTheme.StyleLabel(lblTopPerformers, ModernTheme.TitleFont, ModernTheme.DarkColor);
+
+            ModernTheme.StyleLabel(lblTotalStudents, ModernTheme.BodyFont, ModernTheme.TextColor);
+            ModernTheme.StyleLabel(lblAvgTotal, ModernTheme.BodyFont, ModernTheme.TextColor);
+            ModernTheme.StyleLabel(lblHighestTotal, ModernTheme.BodyFont, ModernTheme.SuccessColor);
+            ModernTheme.StyleLabel(lblLowestTotal, ModernTheme.BodyFont, ModernTheme.DangerColor);
+            ModernTheme.StyleLabel(lblAvgAttendance, ModernTheme.SmallFont, ModernTheme.TextMuted);
+            ModernTheme.StyleLabel(lblAvgOnline, ModernTheme.SmallFont, ModernTheme.TextMuted);
+            ModernTheme.StyleLabel(lblAvgAssignment, ModernTheme.SmallFont, ModernTheme.TextMuted);
+            ModernTheme.StyleLabel(lblAvgProject, ModernTheme.SmallFont, ModernTheme.TextMuted);
+
+            ModernTheme.StylePanel(panelStats, ModernTheme.CardBackground, true);
+            ModernTheme.StylePanel(panelGrades, ModernTheme.CardBackground, true);
+            ModernTheme.StylePanel(panelTop, ModernTheme.CardBackground, true);
+
+            // Use a font that handles Unicode better for text areas
+            txtGradeDistribution.Font = new Font("Consolas", 10F);
+            txtGradeDistribution.BackColor = ModernTheme.BackgroundColor;
+            txtGradeDistribution.BorderStyle = BorderStyle.None;
+
+            txtTopPerformers.Font = new Font("Consolas", 10F);
+            txtTopPerformers.BackColor = ModernTheme.BackgroundColor;
+            txtTopPerformers.BorderStyle = BorderStyle.None;
+
+            ModernTheme.StyleButton(btnBack, ModernTheme.SecondaryColor, Color.White);
+            ModernTheme.StyleButton(btnPrint, ModernTheme.InfoColor, Color.White);
+            ModernTheme.StyleButton(btnExportReport, ModernTheme.SuccessColor, Color.White);
+
+            btnBack.Text = "< Back";
+            btnPrint.Text = "Print";
+            btnExportReport.Text = "Export Report";
+        }
+
+        private void LoadSummaryData()
+        {
+            if (students.Count == 0) return;
+
+            double avgTotal = students.Average(s => s.Total);
+            int highestTotal = students.Max(s => s.Total);
+            int lowestTotal = students.Min(s => s.Total);
+            
+            double avgAttendance = students.Average(s => s.Attendance);
+            double avgOnline = students.Average(s => s.Online);
+            double avgAssignment = students.Average(s => s.Assignment);
+            double avgProject = students.Average(s => s.Project);
+
+            lblTotalStudents.Text = $"Total Students: {students.Count}";
+            lblAvgTotal.Text = $"Average Total: {avgTotal:F2}/100";
+            lblHighestTotal.Text = $"Highest Total: {highestTotal}/100";
+            lblLowestTotal.Text = $"Lowest Total: {lowestTotal}/100";
+            
+            lblAvgAttendance.Text = $"Avg Attendance: {avgAttendance:F1}/20 ({(avgAttendance/20*100):F1}%)";
+            lblAvgOnline.Text = $"Avg Online: {avgOnline:F1}/10 ({(avgOnline/10*100):F1}%)";
+            lblAvgAssignment.Text = $"Avg Assignment: {avgAssignment:F1}/20 ({(avgAssignment/20*100):F1}%)";
+            lblAvgProject.Text = $"Avg Project: {avgProject:F1}/50 ({(avgProject/50*100):F1}%)";
+
+            var gradeDistribution = students.GroupBy(s => s.Grade)
+                                          .Select(g => new { Grade = g.Key, Count = g.Count() })
+                                          .OrderBy(g => GetGradeOrder(g.Grade));
+
+            StringBuilder gradeStats = new StringBuilder();
+            gradeStats.AppendLine("Grade Distribution:");
+            gradeStats.AppendLine("===============================");
+            foreach (var grade in gradeDistribution)
+            {
+                double percentage = (grade.Count / (double)students.Count) * 100;
+                string bar = new string('#', Math.Min((int)(percentage / 5), 20));
+                gradeStats.AppendLine($"{grade.Grade,3}: {grade.Count,3} ({percentage,5:F1}%) {bar}");
+            }
+
+            txtGradeDistribution.Text = gradeStats.ToString();
+
+            var topPerformers = students.OrderByDescending(s => s.Total).Take(10);
+            StringBuilder topStats = new StringBuilder();
+            topStats.AppendLine("Top Performers:");
+            topStats.AppendLine("=======================================");
+            int rank = 1;
+            foreach (var student in topPerformers)
+            {
+                string medal = rank switch
+                {
+                    1 => "[1st]",
+                    2 => "[2nd]", 
+                    3 => "[3rd]",
+                    _ => $"[{rank}th]"
+                };
+                topStats.AppendLine($"{medal} {student.Name,-20} ({student.RollNo})");
+                topStats.AppendLine($"      Total: {student.Total}/100 | Grade: {student.Grade}");
+                topStats.AppendLine("");
+                rank++;
+            }
+
+            txtTopPerformers.Text = topStats.ToString();
+            this.Text = $"Grade Summary Report - {students.Count} Students (Avg: {avgTotal:F1})";
+        }
+
+        private int GetGradeOrder(string grade)
+        {
+            return grade switch
+            {
+                "A+" => 1, "A" => 2, "A-" => 3, "B+" => 4, "B" => 5, "B-" => 6,
+                "C+" => 7, "C" => 8, "C-" => 9, "D+" => 10, "D" => 11, "F" => 12,
+                _ => 13
+            };
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            PrintDialog printDialog = new PrintDialog();
+            if (printDialog.ShowDialog() == DialogResult.OK)
+            {
+                MessageBox.Show("🖨️ Print functionality would be implemented here.\n\nFor now, you can export the report and print from your preferred application.", 
+                    "Print Report", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void btnExportReport_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveDialog = new SaveFileDialog();
+            saveDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+            saveDialog.Title = "Export Summary Report";
+            saveDialog.FileName = $"SummaryReport_{DateTime.Now:yyyyMMdd_HHmmss}.txt";
+
+            if (saveDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    StringBuilder report = new StringBuilder();
+                    report.AppendLine("STUDENT GRADE SUMMARY REPORT");
+                    report.AppendLine($"Generated on: {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
+                    report.AppendLine("===============================================");
+                    report.AppendLine();
+                    
+                    report.AppendLine("STATISTICS:");
+                    report.AppendLine($"Total Students: {students.Count}");
+                    if (students.Count > 0)
+                    {
+                        report.AppendLine($"Average Total: {students.Average(s => s.Total):F2}/100");
+                        report.AppendLine($"Highest Total: {students.Max(s => s.Total)}/100");
+                        report.AppendLine($"Lowest Total: {students.Min(s => s.Total)}/100");
+                    }
+                    report.AppendLine();
+                    
+                    report.AppendLine(txtGradeDistribution.Text);
+                    report.AppendLine();
+                    report.AppendLine(txtTopPerformers.Text);
+
+                    // Use UTF-8 encoding to properly handle any remaining Unicode characters
+                    System.IO.File.WriteAllText(saveDialog.FileName, report.ToString(), System.Text.Encoding.UTF8);
+                    MessageBox.Show("Report exported successfully!", "Export Complete", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error exporting report: {ex.Message}", "Export Error", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+    }
+}

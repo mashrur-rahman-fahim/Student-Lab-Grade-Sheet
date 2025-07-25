@@ -1,0 +1,197 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Drawing;
+
+namespace StudentLabGradeSheet
+{
+    public static class Prompt
+    {
+        public static string ShowDialog(string text, string caption)
+        {
+            Form prompt = new Form()
+            {
+                Width = 450,
+                Height = 200,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                Text = caption,
+                StartPosition = FormStartPosition.CenterParent,
+                MaximizeBox = false,
+                MinimizeBox = false,
+                BackColor = ModernTheme.BackgroundColor,
+                Font = ModernTheme.BodyFont
+            };
+
+            // Apply gradient background with validation
+            prompt.Paint += (sender, e) =>
+            {
+                if (prompt.ClientRectangle.Width > 0 && prompt.ClientRectangle.Height > 0)
+                {
+                    using (var brush = new System.Drawing.Drawing2D.LinearGradientBrush(
+                        prompt.ClientRectangle,
+                        Color.FromArgb(240, 245, 255),
+                        Color.FromArgb(255, 255, 255),
+                        System.Drawing.Drawing2D.LinearGradientMode.Vertical))
+                    {
+                        e.Graphics.FillRectangle(brush, prompt.ClientRectangle);
+                    }
+                }
+            };
+
+            Label textLabel = new Label()
+            {
+                Left = 30,
+                Top = 30,
+                Text = text,
+                AutoSize = true,
+                Font = ModernTheme.BodyFont,
+                ForeColor = ModernTheme.TextColor,
+                BackColor = Color.Transparent
+            };
+
+            TextBox inputBox = new TextBox()
+            {
+                Left = 30,
+                Top = 70,
+                Width = 360,
+                Height = 35,
+                Font = ModernTheme.BodyFont,
+                BorderStyle = BorderStyle.FixedSingle,
+                BackColor = ModernTheme.BackgroundColor,
+                ForeColor = ModernTheme.TextColor
+            };
+
+            Button confirmation = new Button()
+            {
+                Text = "✓ OK",
+                Left = 210,
+                Width = 90,
+                Height = 35,
+                Top = 120,
+                DialogResult = DialogResult.OK,
+                BackColor = ModernTheme.PrimaryColor,
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = ModernTheme.ButtonFont,
+                Cursor = Cursors.Hand
+            };
+            confirmation.FlatAppearance.BorderSize = 0;
+
+            Button cancel = new Button()
+            {
+                Text = "✗ Cancel",
+                Left = 310,
+                Width = 90,
+                Height = 35,
+                Top = 120,
+                DialogResult = DialogResult.Cancel,
+                BackColor = ModernTheme.SecondaryColor,
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = ModernTheme.ButtonFont,
+                Cursor = Cursors.Hand
+            };
+            cancel.FlatAppearance.BorderSize = 0;
+
+            prompt.Controls.Add(textLabel);
+            prompt.Controls.Add(inputBox);
+            prompt.Controls.Add(confirmation);
+            prompt.Controls.Add(cancel);
+            prompt.AcceptButton = confirmation;
+            prompt.CancelButton = cancel;
+
+            // Focus on input box
+            prompt.Shown += (sender, e) => inputBox.Focus();
+
+            return prompt.ShowDialog() == DialogResult.OK ? inputBox.Text.Trim() : "";
+        }
+
+        public static DialogResult ShowConfirmDialog(string text, string caption)
+        {
+            Form confirmForm = new Form()
+            {
+                Width = 450,
+                Height = 200,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                Text = caption,
+                StartPosition = FormStartPosition.CenterParent,
+                MaximizeBox = false,
+                MinimizeBox = false,
+                BackColor = ModernTheme.BackgroundColor,
+                Font = ModernTheme.BodyFont
+            };
+
+            // Apply gradient background with validation
+            confirmForm.Paint += (sender, e) =>
+            {
+                if (confirmForm.ClientRectangle.Width > 0 && confirmForm.ClientRectangle.Height > 0)
+                {
+                    using (var brush = new System.Drawing.Drawing2D.LinearGradientBrush(
+                        confirmForm.ClientRectangle,
+                        Color.FromArgb(240, 245, 255),
+                        Color.FromArgb(255, 255, 255),
+                        System.Drawing.Drawing2D.LinearGradientMode.Vertical))
+                    {
+                        e.Graphics.FillRectangle(brush, confirmForm.ClientRectangle);
+                    }
+                }
+            };
+
+            Label textLabel = new Label()
+            {
+                Left = 30,
+                Top = 30,
+                Width = 360,
+                Height = 60,
+                Text = text,
+                Font = ModernTheme.BodyFont,
+                ForeColor = ModernTheme.TextColor,
+                BackColor = Color.Transparent,
+                TextAlign = ContentAlignment.MiddleLeft
+            };
+
+            Button yesButton = new Button()
+            {
+                Text = "✓ Yes",
+                Left = 180,
+                Width = 90,
+                Height = 35,
+                Top = 120,
+                DialogResult = DialogResult.Yes,
+                BackColor = ModernTheme.SuccessColor,
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = ModernTheme.ButtonFont,
+                Cursor = Cursors.Hand
+            };
+            yesButton.FlatAppearance.BorderSize = 0;
+
+            Button noButton = new Button()
+            {
+                Text = "✗ No",
+                Left = 280,
+                Width = 90,
+                Height = 35,
+                Top = 120,
+                DialogResult = DialogResult.No,
+                BackColor = ModernTheme.DangerColor,
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = ModernTheme.ButtonFont,
+                Cursor = Cursors.Hand
+            };
+            noButton.FlatAppearance.BorderSize = 0;
+
+            confirmForm.Controls.Add(textLabel);
+            confirmForm.Controls.Add(yesButton);
+            confirmForm.Controls.Add(noButton);
+            confirmForm.AcceptButton = yesButton;
+            confirmForm.CancelButton = noButton;
+
+            return confirmForm.ShowDialog();
+        }
+    }
+}

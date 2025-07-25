@@ -1,0 +1,179 @@
+﻿namespace StudentLabGradeSheet
+{
+    partial class Main
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            dataGridView1 = new DataGridView();
+            Roll_No = new DataGridViewTextBoxColumn();
+            Name = new DataGridViewTextBoxColumn();
+            Att = new DataGridViewTextBoxColumn();
+            online = new DataGridViewTextBoxColumn();
+            Assign = new DataGridViewTextBoxColumn();
+            proj = new DataGridViewTextBoxColumn();
+            total = new DataGridViewTextBoxColumn();
+            Grade = new DataGridViewTextBoxColumn();
+            addStudent = new Button();
+            rmv = new Button();
+            import = new Button();
+            export = new Button();
+            summary = new Button();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            SuspendLayout();
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Roll_No, Name, Att, online, Assign, proj, total, Grade });
+            dataGridView1.Location = new Point(12, 12);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Size = new Size(834, 421);
+            dataGridView1.TabIndex = 0;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            // 
+            // Roll_No
+            // 
+            Roll_No.HeaderText = "Roll No";
+            Roll_No.Name = "Roll_No";
+            // 
+            // Name
+            // 
+            Name.HeaderText = "Name";
+            Name.Name = "Name";
+            // 
+            // Att
+            // 
+            Att.HeaderText = "Att (20)";
+            Att.Name = "Att";
+            // 
+            // online
+            // 
+            online.HeaderText = "Online (10)";
+            online.Name = "online";
+            // 
+            // Assign
+            // 
+            Assign.HeaderText = "Assign (20)";
+            Assign.Name = "Assign";
+            // 
+            // proj
+            // 
+            proj.HeaderText = "Proj (20)";
+            proj.Name = "proj";
+            // 
+            // total
+            // 
+            total.HeaderText = "Total";
+            total.Name = "total";
+            // 
+            // Grade
+            // 
+            Grade.HeaderText = "Grade";
+            Grade.Name = "Grade";
+            // 
+            // addStudent
+            // 
+            addStudent.Location = new Point(96, 545);
+            addStudent.Name = "addStudent";
+            addStudent.Size = new Size(88, 23);
+            addStudent.TabIndex = 1;
+            addStudent.Text = "Add Student";
+            addStudent.UseVisualStyleBackColor = true;
+            addStudent.Click += addStudent_Click;
+            // 
+            // rmv
+            // 
+            rmv.Location = new Point(236, 545);
+            rmv.Name = "rmv";
+            rmv.Size = new Size(114, 23);
+            rmv.TabIndex = 2;
+            rmv.Text = "Remove Selected";
+            rmv.UseVisualStyleBackColor = true;
+            // 
+            // import
+            // 
+            import.Location = new Point(380, 545);
+            import.Name = "import";
+            import.Size = new Size(75, 23);
+            import.TabIndex = 3;
+            import.Text = "Import CSV";
+            import.UseVisualStyleBackColor = true;
+            // 
+            // export
+            // 
+            export.Location = new Point(529, 545);
+            export.Name = "export";
+            export.Size = new Size(95, 23);
+            export.TabIndex = 4;
+            export.Text = "Export Grades";
+            export.UseVisualStyleBackColor = true;
+            // 
+            // summary
+            // 
+            summary.Location = new Point(686, 545);
+            summary.Name = "summary";
+            summary.Size = new Size(75, 23);
+            summary.TabIndex = 5;
+            summary.Text = "Generate Report";
+            summary.UseVisualStyleBackColor = true;
+            // 
+            // Main
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(870, 632);
+            Controls.Add(summary);
+            Controls.Add(export);
+            Controls.Add(import);
+            Controls.Add(rmv);
+            Controls.Add(addStudent);
+            Controls.Add(dataGridView1);
+            Name = "Main";
+            Text = "Main";
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ResumeLayout(false);
+        }
+
+        #endregion
+
+        private DataGridView dataGridView1;
+        private DataGridViewTextBoxColumn Roll_No;
+        private DataGridViewTextBoxColumn Name;
+        private DataGridViewTextBoxColumn Att;
+        private DataGridViewTextBoxColumn online;
+        private DataGridViewTextBoxColumn Assign;
+        private DataGridViewTextBoxColumn proj;
+        private DataGridViewTextBoxColumn total;
+        private DataGridViewTextBoxColumn Grade;
+        private Button addStudent;
+        private Button rmv;
+        private Button import;
+        private Button export;
+        private Button summary;
+    }
+}

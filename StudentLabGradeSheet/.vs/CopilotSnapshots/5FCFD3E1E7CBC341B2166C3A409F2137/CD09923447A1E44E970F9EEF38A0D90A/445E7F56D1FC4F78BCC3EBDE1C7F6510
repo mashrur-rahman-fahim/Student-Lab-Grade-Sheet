@@ -1,0 +1,110 @@
+﻿# Student Lab Grade Sheet Generator
+
+A Windows Forms application to manage SD Lab grades for Section C1 students.
+
+## Features
+
+### 1. Login System
+- **Username:** admin
+- **Password:** SDlab123
+- Password is masked for security
+
+### 2. Grade Management
+- **Add Students:** Add new students with Roll Number and Name
+- **Remove Students:** Remove selected students from the list
+- **Enter Marks:** Edit marks directly in the grid for:
+  - Attendance (out of 20) - **Validated: 0 ≤ attendance ≤ 20**
+  - Online (out of 10) - **Validated: 0 ≤ online ≤ 10**
+  - Assignment (out of 20) - **Validated: 0 ≤ assignment ≤ 20**
+  - Project (out of 50) - **Validated: 0 ≤ project ≤ 50**
+- **Auto Grade Calculation:** Grades are automatically calculated with validation
+- **Smart Validation:** Invalid marks are automatically corrected to valid ranges
+
+### 3. File Operations
+- **Import CSV:** Import student list from CSV file with automatic validation
+- **Export CSV:** Export final grades to CSV file
+
+### 4. Additional Features
+- **Duplicate Prevention:** Prevents adding students with duplicate roll numbers
+- **Search Functionality:** Search students by Roll Number or Name
+- **Summary Report:** View statistics including:
+  - Average, highest, and lowest marks
+  - Grade distribution
+  - Top 5 performers
+  - Component-wise averages
+- **Real-time Validation:** Immediate feedback when entering invalid marks
+
+## Marks Validation Rules
+
+### Maximum Marks
+- **Attendance:** 20 marks maximum
+- **Online:** 10 marks maximum
+- **Assignment:** 20 marks maximum
+- **Project:** 50 marks maximum
+- **Total:** 100 marks maximum
+
+### Auto-Correction
+- Values below 0 are automatically set to 0
+- Values above maximum are automatically set to maximum
+- Users receive notification when values are corrected
+
+## Grade Scale (Based on Total Marks out of 100)
+
+- **A+:** 80-100 marks
+- **A:** 75-79 marks  
+- **A-:** 70-74 marks
+- **B+:** 65-69 marks
+- **B:** 60-64 marks
+- **B-:** 55-59 marks
+- **C+:** 50-54 marks
+- **C:** 45-49 marks
+- **C-:** 40-44 marks
+- **D+:** 35-39 marks
+- **D:** 30-34 marks
+- **F:** Below 30 marks
+
+*Note: Each grade represents a 5-mark range (except A+ which covers 20 marks)*
+
+## CSV File Format
+
+### Import Format
+```
+Roll No,Name,Attendance,Online,Assignment,Project
+2019-SE-001,John Smith,18,9,17,45
+2019-SE-002,Jane Doe,20,10,19,48
+```
+
+### Export Format
+The exported CSV includes all student data with calculated totals and grades.
+
+## How to Use
+
+1. **Login:** Use credentials admin/SDlab123
+2. **Add Students:** Click "Add Student" to manually add students
+3. **Import:** Use "Import CSV" to bulk import from a CSV file
+4. **Edit Marks:** Click on any marks cell in the grid to edit
+   - Invalid values will be automatically corrected
+   - You'll receive a warning if values are out of range
+5. **Search:** Use "Search Student" to find specific students
+6. **Export:** Use "Export Grades" to save results to CSV
+7. **Report:** Click "Generate Report" to view summary statistics
+
+## Validation Features
+
+### Input Validation
+- **Roll Numbers:** Must follow format (e.g., 2019-SE-001)
+- **Names:** Only letters and spaces, 2-50 characters
+- **Marks:** Automatically clamped to valid ranges
+
+### Real-time Feedback
+- Immediate validation when editing marks
+- Warning messages for out-of-range values
+- Automatic correction with user notification
+
+### Import Validation
+- CSV import includes validation warnings
+- Shows which values were corrected during import
+- Prevents duplicate roll numbers
+
+## Sample Data
+A sample CSV file (sample_students.csv) is provided for testing the import functionality.

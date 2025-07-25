@@ -1,0 +1,509 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.IO;
+
+namespace StudentLabGradeSheet
+{
+    public partial class Main : Form
+    {
+        private List<Student> students;
+        private BindingSource bindingSource;
+        
+        public Main()
+        {
+            InitializeComponent();
+            InitializeData();
+            SetupDataGridView();
+            ApplyModernStyling();
+        }
+
+        private void ApplyModernStyling()
+        {
+            // Apply modern theme to form
+            ModernTheme.StyleForm(this, "Student Lab Grade Sheet Generator");
+            this.WindowState = FormWindowState.Maximized;
+            this.FormBorderStyle = FormBorderStyle.Sizable;
+            this.MaximizeBox = true;
+
+            // Apply gradient background
+            ModernTheme.ApplyGradientBackground(this);
+
+            // Style the title label
+            ModernTheme.StyleLabel(lblTitle, ModernTheme.HeaderFont, ModernTheme.PrimaryColor);
+            ModernTheme.StyleLabel(lblSubtitle, ModernTheme.BodyFont, ModernTheme.TextMuted);
+
+            // Style buttons with different colors for different actions
+            ModernTheme.StyleButton(addStudent, ModernTheme.SuccessColor, Color.White);
+            ModernTheme.StyleButton(removeStudent, ModernTheme.DangerColor, Color.White);
+            ModernTheme.StyleButton(importCSV, ModernTheme.InfoColor, Color.White);
+            ModernTheme.StyleButton(exportGrades, ModernTheme.WarningColor, Color.White);
+            ModernTheme.StyleButton(generateReport, ModernTheme.PrimaryColor, Color.White);
+            ModernTheme.StyleButton(searchStudent, ModernTheme.SecondaryColor, Color.White);
+            ModernTheme.StyleButton(btnLogout, ModernTheme.DangerColor, Color.White);
+
+            // Style panels
+            ModernTheme.StylePanel(panelTop, ModernTheme.CardBackground, true);
+            ModernTheme.StylePanel(panelButtons, ModernTheme.CardBackground, true);
+
+            // Style DataGridView
+            ModernTheme.StyleDataGridView(dataGridView1);
+
+            // Add icons to buttons (using simple text symbols)
+            addStudent.Text = "+ Add Student";
+            removeStudent.Text = "- Remove";
+            importCSV.Text = "Import";
+            exportGrades.Text = "Export";
+            generateReport.Text = "Report";
+            searchStudent.Text = "Search";
+
+            // Position logout button properly
+            btnLogout.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnLogout.Location = new Point(this.Width - btnLogout.Width - 50, 30);
+
+            // Update status bar with student count
+            UpdateStatusBar();
+        }
+
+        private void UpdateStatusBar()
+        {
+            if (toolStripStatusLabel2 != null)
+            {
+                toolStripStatusLabel2.Text = $"Students Loaded: {students.Count}";
+            }
+        }
+
+        private void InitializeData()
+        {
+            students = new List<Student>();
+            bindingSource = new BindingSource();
+            bindingSource.DataSource = students;
+        }
+
+        private void SetupDataGridView()
+        {
+            dataGridView1.DataSource = bindingSource;
+            dataGridView1.AutoGenerateColumns = true;
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.MultiSelect = false;
+            
+            // Format columns after data binding
+            Application.DoEvents(); // Ensure columns are created
+            
+            if (dataGridView1.Columns.Count > 0)
+            {
+                // Set column headers
+                if (dataGridView1.Columns["RollNo"] != null)
+                    dataGridView1.Columns["RollNo"].HeaderText = "Roll No";
+                if (dataGridView1.Columns["Name"] != null)
+                    dataGridView1.Columns["Name"].HeaderText = "Name";
+                if (dataGridView1.Columns["Attendance"] != null)
+                    dataGridView1.Columns["Attendance"].HeaderText = "Attendance (20)";
+                if (dataGridView1.Columns["Online"] != null)
+                    dataGridView1.Columns["Online"].HeaderText = "Online (10)";
+                if (dataGridView1.Columns["Assignment"] != null)
+                    dataGridView1.Columns["Assignment"].HeaderText = "Assignment (20)";
+                if (dataGridView1.Columns["Project"] != null)
+                    dataGridView1.Columns["Project"].HeaderText = "Project (50)";
+                if (dataGridView1.Columns["Total"] != null)
+                {
+                    dataGridView1.Columns["Total"].HeaderText = "Total (100)";
+                    dataGridView1.Columns["Total"].ReadOnly = true;
+                }
+                if (dataGridView1.Columns["Grade"] != null)
+                {
+                    dataGridView1.Columns["Grade"].HeaderText = "Grade";
+                    dataGridView1.Columns["Grade"].ReadOnly = true;
+                }
+
+                // Set column widths
+                foreach (DataGridViewColumn column in dataGridView1.Columns)
+                {
+                    column.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                }
+            }
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Handle cell clicks if needed
+        }
+
+        private void addStudent_Click(object sender, EventArgs e)
+        {
+            string rollNo = Prompt.ShowDialog("Enter Roll No:", "Add Student");
+            if (string.IsNullOrWhiteSpace(rollNo))
+                return;
+
+            // Format and validate roll number
+            rollNo = ValidationHelper.FormatRollNumber(rollNo);
+
+            // Check for duplicate roll numbers
+            if (students.Any(s => s.RollNo.Equals(rollNo, StringComparison.OrdinalIgnoreCase)))
+            {
+                MessageBox.Show("A student with this roll number already exists!", "Duplicate Roll Number", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            string name = Prompt.ShowDialog("Enter Student Name:", "Add Student");
+            if (string.IsNullOrWhiteSpace(name))
+                return;
+
+            // Format and validate name
+            name = ValidationHelper.FormatName(name);
+            if (!ValidationHelper.IsValidName(name))
+            {
+                MessageBox.Show("Please enter a valid name (letters and spaces only, 2-50 characters).", "Invalid Name", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            Student newStudent = new Student(rollNo, name);
+            students.Add(newStudent);
+            bindingSource.ResetBindings(false);
+            UpdateStatusBar();
+            
+            MessageBox.Show($"Student {name} (Roll No: {rollNo}) added successfully!\n\n📝 Note: Edit marks directly in the grid.\n📊 Max values: Attendance(20), Online(10), Assignment(20), Project(50)", 
+                "Student Added", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void removeStudent_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select a student to remove.", "No Selection", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            Student selectedStudent = (Student)dataGridView1.SelectedRows[0].DataBoundItem;
+            
+            if (Prompt.ShowConfirmDialog($"Are you sure you want to remove {selectedStudent.Name} (Roll No: {selectedStudent.RollNo})?", 
+                "Confirm Removal") == DialogResult.Yes)
+            {
+                students.Remove(selectedStudent);
+                bindingSource.ResetBindings(false);
+                UpdateStatusBar();
+                MessageBox.Show("Student removed successfully!", "Student Removed", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void importCSV_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*";
+            openFileDialog.Title = "Import Student List";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    ImportStudentsFromCSV(openFileDialog.FileName);
+                    UpdateStatusBar();
+                    MessageBox.Show("Students imported successfully!\n\n✅ Note: All marks have been validated and clamped to valid ranges:\n📊 Attendance(0-20), Online(0-10), Assignment(0-20), Project(0-50)", 
+                        "Import Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error importing CSV file: {ex.Message}", "Import Error", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void ImportStudentsFromCSV(string filePath)
+        {
+            string[] lines = File.ReadAllLines(filePath);
+            int importedCount = 0;
+            int skippedCount = 0;
+            var validationWarnings = new List<string>();
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string line = lines[i].Trim();
+                if (string.IsNullOrEmpty(line) || (i == 0 && line.ToLower().Contains("roll")))
+                    continue; // Skip header or empty lines
+
+                string[] parts = line.Split(',');
+                if (parts.Length >= 2)
+                {
+                    string rollNo = ValidationHelper.FormatRollNumber(parts[0].Trim());
+                    string name = ValidationHelper.FormatName(parts[1].Trim());
+
+                    // Check for duplicates
+                    if (!students.Any(s => s.RollNo.Equals(rollNo, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        Student student = new Student(rollNo, name);
+                        
+                        // If more columns exist, try to import marks with validation
+                        if (parts.Length >= 6)
+                        {
+                            if (int.TryParse(parts[2].Trim(), out int att))
+                            {
+                                if (!ValidationHelper.IsValidAttendance(att))
+                                    validationWarnings.Add($"{rollNo}: Attendance {att} clamped to valid range (0-20)");
+                                student.Attendance = att; // Will be auto-clamped by setter
+                            }
+                            
+                            if (int.TryParse(parts[3].Trim(), out int online))
+                            {
+                                if (!ValidationHelper.IsValidOnline(online))
+                                    validationWarnings.Add($"{rollNo}: Online {online} clamped to valid range (0-10)");
+                                student.Online = online; // Will be auto-clamped by setter
+                            }
+                            
+                            if (int.TryParse(parts[4].Trim(), out int assign))
+                            {
+                                if (!ValidationHelper.IsValidAssignment(assign))
+                                    validationWarnings.Add($"{rollNo}: Assignment {assign} clamped to valid range (0-20)");
+                                student.Assignment = assign; // Will be auto-clamped by setter
+                            }
+                            
+                            if (int.TryParse(parts[5].Trim(), out int proj))
+                            {
+                                if (!ValidationHelper.IsValidProject(proj))
+                                    validationWarnings.Add($"{rollNo}: Project {proj} clamped to valid range (0-50)");
+                                student.Project = proj; // Will be auto-clamped by setter
+                            }
+                        }
+                        
+                        students.Add(student);
+                        importedCount++;
+                    }
+                    else
+                    {
+                        skippedCount++;
+                    }
+                }
+            }
+
+            bindingSource.ResetBindings(false);
+            
+            string message = $"📊 Imported {importedCount} students.";
+            if (skippedCount > 0)
+                message += $" ⚠️ Skipped {skippedCount} duplicates.";
+            
+            if (validationWarnings.Count > 0)
+            {
+                message += $"\n\n⚠️ Validation warnings:\n{string.Join("\n", validationWarnings.Take(10))}";
+                if (validationWarnings.Count > 10)
+                    message += $"\n... and {validationWarnings.Count - 10} more warnings.";
+            }
+            
+            MessageBox.Show(message, "Import Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void exportGrades_Click(object sender, EventArgs e)
+        {
+            if (students.Count == 0)
+            {
+                MessageBox.Show("No students to export.", "No Data", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "CSV files (*.csv)|*.csv";
+            saveFileDialog.Title = "Export Grades";
+            saveFileDialog.FileName = $"GradeSheet_{DateTime.Now:yyyyMMdd_HHmmss}.csv";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    ExportGradesToCSV(saveFileDialog.FileName);
+                    MessageBox.Show("📊 Grades exported successfully!", "Export Successful", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error exporting grades: {ex.Message}", "Export Error", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void ExportGradesToCSV(string filePath)
+        {
+            StringBuilder csv = new StringBuilder();
+            csv.AppendLine("Roll No,Name,Attendance,Online,Assignment,Project,Total,Grade");
+
+            foreach (Student student in students)
+            {
+                csv.AppendLine($"{student.RollNo},{student.Name},{student.Attendance},{student.Online},{student.Assignment},{student.Project},{student.Total},{student.Grade}");
+            }
+
+            File.WriteAllText(filePath, csv.ToString());
+        }
+
+        private void generateReport_Click(object sender, EventArgs e)
+        {
+            if (students.Count == 0)
+            {
+                MessageBox.Show("No students available for report generation.", "No Data", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            SummaryForm summaryForm = new SummaryForm(students);
+            summaryForm.ShowDialog();
+        }
+
+        private void searchStudent_Click(object sender, EventArgs e)
+        {
+            string searchTerm = Prompt.ShowDialog("Enter Roll No or Name to search:", "Search Student");
+            if (string.IsNullOrWhiteSpace(searchTerm))
+                return;
+
+            var foundStudents = students.Where(s => 
+                s.RollNo.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                s.Name.IndexOf(searchTerm, StringComparison.OrdinalIgnoreCase) >= 0).ToList();
+
+            if (foundStudents.Count == 0)
+            {
+                MessageBox.Show("🔍 No students found matching the search criteria.", "Search Results", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            // Highlight found students in the grid
+            dataGridView1.ClearSelection();
+            foreach (Student student in foundStudents)
+            {
+                int index = students.IndexOf(student);
+                if (index >= 0)
+                {
+                    dataGridView1.Rows[index].Selected = true;
+                }
+            }
+
+            MessageBox.Show($"🔍 Found {foundStudents.Count} student(s) matching '{searchTerm}'.", "Search Results", 
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            // Validate marks when cell editing is finished
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                string columnName = dataGridView1.Columns[e.ColumnIndex].Name;
+                var student = students[e.RowIndex];
+                
+                // Show validation message if marks were auto-corrected
+                string validationError = "";
+                switch (columnName)
+                {
+                    case "Attendance":
+                        if (student.Attendance != (int)dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value)
+                            validationError = "⚠️ Attendance must be between 0 and 20. Value has been corrected.";
+                        break;
+                    case "Online":
+                        if (student.Online != (int)dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value)
+                            validationError = "⚠️ Online marks must be between 0 and 10. Value has been corrected.";
+                        break;
+                    case "Assignment":
+                        if (student.Assignment != (int)dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value)
+                            validationError = "⚠️ Assignment marks must be between 0 and 20. Value has been corrected.";
+                        break;
+                    case "Project":
+                        if (student.Project != (int)dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value)
+                            validationError = "⚠️ Project marks must be between 0 and 50. Value has been corrected.";
+                        break;
+                }
+                
+                if (!string.IsNullOrEmpty(validationError))
+                {
+                    MessageBox.Show(validationError, "Validation Warning", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            
+            // Refresh calculated columns when marks are edited
+            bindingSource.ResetBindings(false);
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            // Proper exit confirmation dialog
+            DialogResult result = MessageBox.Show(
+                "Are you sure you want to exit the application?\n\nAny unsaved changes will be lost.", 
+                "Confirm Exit", 
+                MessageBoxButtons.YesNo, 
+                MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button2);
+
+            if (result == DialogResult.No)
+            {
+                e.Cancel = true;
+                return;
+            }
+
+            // Close all forms and exit application properly
+            try
+            {
+                // Hide this form first
+                this.Hide();
+                
+                // Close all other forms
+                for (int i = Application.OpenForms.Count - 1; i >= 0; i--)
+                {
+                    if (Application.OpenForms[i] != this)
+                    {
+                        Application.OpenForms[i].Close();
+                    }
+                }
+                
+                // Exit the application
+                Application.Exit();
+            }
+            catch (Exception ex)
+            {
+                // Force exit if there's any issue
+                System.Environment.Exit(0);
+            }
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+                "Are you sure you want to logout?\n\nYou will be returned to the login screen.", 
+                "Confirm Logout", 
+                MessageBoxButtons.YesNo, 
+                MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    // Simply close this form - the Login form will handle showing itself again
+                    this.DialogResult = DialogResult.Cancel; // Indicates logout
+                    this.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error during logout: {ex.Message}", "Logout Error", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        // Handle form resize to reposition logout button
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+            if (btnLogout != null)
+            {
+                btnLogout.Location = new Point(this.Width - btnLogout.Width - 50, 30);
+            }
+        }
+    }
+}
