@@ -2,7 +2,7 @@
 
 A modern Windows Forms application to manage SD Lab grades for Section C1 students with a clean UI and enhanced user experience.
 
-## ?? Download
+## Download
 
 Get the latest installer from the [Releases page](https://github.com/mashrur-rahman-fahim/Student-Lab-Grade-Sheet/releases).
 
@@ -91,8 +91,8 @@ Get the latest installer from the [Releases page](https://github.com/mashrur-rah
 ### Grading System
 
 - A+: ? 80 marks (Green highlight)
-- A: 75�79 marks
-- A-: 70�74 marks
+- A: 75 79 marks
+- A-: 70 74 marks
 - Every 5 marks: Grade decrease pattern
 - F: < 30 marks (Red highlight)
 
