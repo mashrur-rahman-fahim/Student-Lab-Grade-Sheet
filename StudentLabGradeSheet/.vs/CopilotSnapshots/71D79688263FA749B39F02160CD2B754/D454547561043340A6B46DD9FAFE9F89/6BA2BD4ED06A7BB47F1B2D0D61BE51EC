@@ -1,10 +1,6 @@
-# Student Lab Grade Sheet Generator
+ï»¿# Student Lab Grade Sheet Generator
 
 A modern Windows Forms application to manage SD Lab grades for Section C1 students with a clean UI and enhanced user experience.
-
-## ?? Download
-
-Get the latest installer from the [Releases page](https://github.com/your-username/your-repo/releases).
 
 ## Features
 
@@ -84,8 +80,8 @@ Get the latest installer from the [Releases page](https://github.com/your-userna
 
 ### Grading System
 - A+: ? 80 marks (Green highlight)
-- A: 75–79 marks
-- A-: 70–74 marks
+- A: 75â€“79 marks
+- A-: 70â€“74 marks
 - Every 5 marks: Grade decrease pattern
 - F: < 30 marks (Red highlight)
 

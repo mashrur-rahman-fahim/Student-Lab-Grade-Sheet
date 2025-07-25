@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StudentLabGradeSheet")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+461b727789100e086716bb2055e5e3e60a032e6d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c9927dc2c210a452c052ea8bcaf16217956c1e7b")]
 [assembly: System.Reflection.AssemblyProductAttribute("StudentLabGradeSheet")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StudentLabGradeSheet")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
