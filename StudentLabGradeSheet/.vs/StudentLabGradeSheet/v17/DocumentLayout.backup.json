@@ -3,6 +3,9 @@
   "WorkspaceRootPath": "C:\\Users\\User\\source\\repos\\StudentLabGradeSheetProject\\StudentLabGradeSheet\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\source\\repos\\StudentLabGradeSheetProject\\README.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{8B47C9D1-C329-49B2-AC44-27A672F60C0F}|StudentLabGradeSheet.csproj|c:\\users\\user\\source\\repos\\studentlabgradesheetproject\\studentlabgradesheet\\studentlabgradesheet.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
       "RelativeMoniker": "D:0:0:{8B47C9D1-C329-49B2-AC44-27A672F60C0F}|StudentLabGradeSheet.csproj|solutionrelative:studentlabgradesheet.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     }
@@ -31,6 +34,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "README.md",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\StudentLabGradeSheetProject\\README.md",
+              "RelativeDocumentMoniker": "..\\README.md",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\StudentLabGradeSheetProject\\README.md",
+              "RelativeToolTip": "..\\README.md",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2025-07-25T13:49:47.991Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "StudentLabGradeSheet",
               "DocumentMoniker": "C:\\Users\\User\\source\\repos\\StudentLabGradeSheetProject\\StudentLabGradeSheet\\StudentLabGradeSheet.csproj",
               "RelativeDocumentMoniker": "StudentLabGradeSheet.csproj",

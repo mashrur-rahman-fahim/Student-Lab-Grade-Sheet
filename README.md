@@ -4,17 +4,19 @@ A modern Windows Forms application to manage SD Lab grades for Section C1 studen
 
 ## ?? Download
 
-Get the latest installer from the [Releases page](https://github.com/your-username/your-repo/releases).
+Get the latest installer from the [Releases page](https://github.com/mashrur-rahman-fahim/Student-Lab-Grade-Sheet/releases).
 
 ## Features
 
 ### Modern UI Theme
+
 - Professional blue and gray color palette
 - Modern Segoe UI fonts with clear hierarchy
 - Gradient backgrounds on forms
 - Card-based layout for clean design
 
 ### Visual Enhancements
+
 - Flat, modern buttons with hover effects
 - Centered login form with gradient background
 - Professionally styled DataGridView with alternating rows
@@ -24,6 +26,7 @@ Get the latest installer from the [Releases page](https://github.com/your-userna
 ### Form-by-Form Design
 
 #### Login Form
+
 - Centered card-based layout
 - Gradient background
 - Modern input fields
@@ -31,6 +34,7 @@ Get the latest installer from the [Releases page](https://github.com/your-userna
 - Professional login panel
 
 #### Main Form
+
 - Header panel with title and logout button
 - Data grid for student records
 - Action buttons:
@@ -43,6 +47,7 @@ Get the latest installer from the [Releases page](https://github.com/your-userna
 - Status bar with student count
 
 #### Summary Report Form
+
 - Statistics panel with metrics
 - ASCII bar charts for grade distribution
 - Top performers ranking system
@@ -65,36 +70,40 @@ Get the latest installer from the [Releases page](https://github.com/your-userna
 
 ## Color Scheme
 
-| Element   | Color     | Usage                        |
-|-----------|-----------|------------------------------|
-| Primary   | #007BFF   | Main actions, titles         |
-| Success   | #28A745   | Add operations, success      |
-| Danger    | #DC3545   | Delete operations, errors    |
-| Warning   | #FFC107   | Export operations, warnings  |
-| Info      | #17A2B8   | Import operations, info      |
-| Secondary | #6C757D   | Search, neutral actions      |
+| Element   | Color   | Usage                       |
+| --------- | ------- | --------------------------- |
+| Primary   | #007BFF | Main actions, titles        |
+| Success   | #28A745 | Add operations, success     |
+| Danger    | #DC3545 | Delete operations, errors   |
+| Warning   | #FFC107 | Export operations, warnings |
+| Info      | #17A2B8 | Import operations, info     |
+| Secondary | #6C757D | Search, neutral actions     |
 
 ## Technical Features
 
 ### Validation System
+
 - Real-time validation during data entry
 - Auto-correction of invalid values
 - Color-coded validation messages
 - Clear, actionable error messages
 
 ### Grading System
+
 - A+: ? 80 marks (Green highlight)
-- A: 75–79 marks
-- A-: 70–74 marks
+- A: 75ï¿½79 marks
+- A-: 70ï¿½74 marks
 - Every 5 marks: Grade decrease pattern
 - F: < 30 marks (Red highlight)
 
 ### File Operations
+
 - Modern file dialogs for import/export
 - Progress feedback and error handling
 - Smart CSV processing and validation
 
 ### Search & Filter
+
 - Search by roll number or name
 - Visual highlighting of found students
 - Fast, user-friendly search results
@@ -109,12 +118,14 @@ Get the latest installer from the [Releases page](https://github.com/your-userna
 6. **Export Results**: Use the yellow Export button
 
 ### Login Credentials
+
 - **Username:** `admin`
 - **Password:** `SDlab123`
 
 ## Sample Data
 
 The application includes sample data with various grade distributions:
+
 - High performers (A+, A grades)
 - Average students (B range)
 - Struggling students (C, D ranges)
@@ -133,4 +144,4 @@ The application includes sample data with various grade distributions:
 
 **Enjoy the modern Student Lab Grade Sheet Generator!**
 
-*Built with Windows Forms, Modern Design Principles, and Enhanced User Experience*
+_Built with Windows Forms, Modern Design Principles, and Enhanced User Experience_
